@@ -80,10 +80,10 @@ export default function AboutUs({ dark }) {
   return (
     <section className="space-y-5">
       <article className={`rounded-2xl border px-6 py-7 text-center shadow-sm ${dark ? "border-slate-700 bg-slate-800" : "border-slate-200 bg-white"}`}>
-        <p className={`text-xs font-semibold tracking-[0.45em] ${dark ? "text-slate-400" : "text-slate-500"}`}>URSPI 110 BALLIK TIZIMI</p>
+        <p className={`text-xs font-semibold tracking-[0.45em] ${dark ? "text-slate-400" : "text-slate-500"}`}>URSPI TYUTORLARNI KPI TIZIMI</p>
         <h2 className={`mt-3 text-3xl font-extrabold ${dark ? "text-slate-100" : "text-slate-900"}`}>Biz haqimizda</h2>
         <p className={`mx-auto mt-3 max-w-3xl text-sm leading-6 ${dark ? "text-slate-300" : "text-slate-600"}`}>
-          Ushbu admin panel Komissiya tomonidan o‘qituvchilar faoliyatini 110 ballik baholash tizimi asosida adolatli va qulay tarzda baholash,
+          Ushbu platforma Komissiya tomonidan tyutorlar faoliyatini KPI baholash tizimi asosida adolatli va qulay tarzda baholash,
          natijalarni tahlil qilish hamda ta’lim sifatini oshirish maqsadida ishlab chiqilgan. 
         </p>
       </article>

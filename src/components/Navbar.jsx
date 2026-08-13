@@ -1,6 +1,5 @@
 import { useState } from "react"
 import { Menu, X } from "lucide-react"
-import Button from "./Button.jsx"
 
 export default function Navbar({
   activePage,
@@ -89,7 +88,8 @@ export default function Navbar({
                   <div className="h-14 w-14 rounded-lg bg-white/20 shadow-inner shadow-white/10 sm:h-16 sm:w-16" />
                 )}
                 <div className="hidden leading-tight sm:block">
-                  <p className="text-base font-semibold text-white/95">URSPI</p>
+                  <p className="text-base font-bold tracking-wide text-white">URSPI</p>
+                  <p className="text-[10px] font-medium tracking-wider text-indigo-200 uppercase">Tyutorlar KPI Tizimi</p>
                 </div>
               </div>
             )}
@@ -110,13 +110,7 @@ export default function Navbar({
                   Chiqish
                 </button>
               </>
-            ) : (
-              <Button
-                type="button"
-                onClick={onOpenLogin}
-                style={{ height: "3.25rem", padding: "0 2.25rem", fontSize: "0.95rem" }}
-              />
-            )}
+            ) : null}
           </div>
         </div>
       </nav>
@@ -147,7 +141,10 @@ export default function Navbar({
                   className="h-10 w-10 rounded-lg bg-white/70 p-0.5 object-contain"
                 />
               ) : null}
-              <p className="text-sm font-semibold text-white/90">URSPI</p>
+              <div>
+                <p className="text-sm font-bold text-white">URSPI</p>
+                <p className="text-[10px] font-medium text-indigo-200 uppercase">Tyutorlar KPI Tizimi</p>
+              </div>
             </div>
             <button
               type="button"

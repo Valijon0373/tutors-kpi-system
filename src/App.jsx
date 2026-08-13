@@ -1298,9 +1298,9 @@ function App() {
           }`}
         >
         {!currentUser ? (
-          <div className="flex min-h-0 flex-1 flex-col items-center justify-center py-4 sm:py-6">
-            <section className="mx-auto flex w-full max-w-3xl flex-col items-center justify-center gap-6 overflow-hidden rounded-3xl border border-white/15 bg-white/10 px-6 py-8 shadow-2xl shadow-slate-950/40 backdrop-blur-md sm:px-8 sm:py-10 md:gap-8 md:py-11">
-              <HomeHeroBrand />
+          <div className="flex min-h-0 flex-1 flex-col items-center justify-center py-4 sm:py-8">
+            <section className="relative mx-auto flex w-full max-w-5xl flex-col items-center justify-center overflow-hidden rounded-3xl border border-white/20 bg-slate-900/60 p-6 shadow-2xl shadow-indigo-950/50 backdrop-blur-xl sm:p-10 md:p-12">
+              <HomeHeroBrand onOpenLogin={() => setLoginOpen(true)} />
             </section>
           </div>
         ) : activePage === "dashboard" ? (

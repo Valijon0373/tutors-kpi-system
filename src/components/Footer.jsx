@@ -34,7 +34,7 @@ const FOOTER_SOCIAL = [
   },
 ]
 
-export default function Footer({ creditLine = "UrSPI | RTTM Jamosi | 2026" }) {
+export default function Footer({ creditLine = "UrSPI | Tyutorlar KPI Tizimi | 2026" }) {
   return (
     <footer className="relative z-10 mt-auto w-full rounded-t-3xl border-t border-white/25 bg-white/10 py-6 shadow-[0_-8px_32px_rgba(0,0,0,0.12)] backdrop-blur-xl">
       <div className="mx-auto flex max-w-xl flex-col items-center justify-center px-4 text-center">

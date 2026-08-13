@@ -1,15 +1,20 @@
 import { useEffect, useState } from "react"
+import { Award, FileCheck, LogIn, ShieldCheck, Sparkles, TrendingUp } from "lucide-react"
 
-/** Asosiy sahifa — "110" va o'rtada oq chiziqdagi "BALLIK TIZIM" brendi (CSS, #2b59ad). */
-const BRAND = "#2b59ad"
-const WELCOME_FULL = "Xush kelibsiz!"
+const WELCOME_MESSAGES = [
+  "Xush kelibsiz!",
+  "Tyutorlar faoliyatini baholash va monitoring platformasi",
+  "Shaffof, adolatli va zamonaviy KPI tizimi"
+]
 
-const TYPE_MS = 58
-const PAUSE_AT_FULL_MS = 2200
+const TYPE_MS = 50
+const PAUSE_AT_FULL_MS = 2500
 
 function WelcomeTypewriter() {
+  const [msgIdx, setMsgIdx] = useState(0)
   const [len, setLen] = useState(0)
-  const typing = len < WELCOME_FULL.length
+  const currentMsg = WELCOME_MESSAGES[msgIdx]
+  const typing = len < currentMsg.length
 
   useEffect(() => {
     let cancelled = false
@@ -22,7 +27,7 @@ function WelcomeTypewriter() {
 
     const tick = () => {
       if (cancelled) return
-      if (pos < WELCOME_FULL.length) {
+      if (pos < currentMsg.length) {
         pos += 1
         setLen(pos)
         schedule(TYPE_MS, tick)
@@ -31,7 +36,7 @@ function WelcomeTypewriter() {
           if (cancelled) return
           pos = 0
           setLen(0)
-          schedule(TYPE_MS, tick)
+          setMsgIdx((prev) => (prev + 1) % WELCOME_MESSAGES.length)
         })
       }
     }
@@ -41,74 +46,105 @@ function WelcomeTypewriter() {
       cancelled = true
       window.clearTimeout(tid)
     }
-  }, [])
+  }, [msgIdx, currentMsg])
 
   return (
-    <p
-      className="relative -mt-2 min-h-[2.75rem] max-w-xl text-center text-2xl font-semibold tracking-tight text-white drop-shadow-sm sm:-mt-3 sm:min-h-[3.25rem] sm:text-3xl"
-      aria-label={WELCOME_FULL}
-      aria-live="off"
-    >
-      <span>{WELCOME_FULL.slice(0, len)}</span>
-      {typing && (
-        <span
-          className="ml-0.5 inline-block h-[1em] w-[2px] translate-y-[0.08em] animate-pulse bg-white/90 align-middle"
-          aria-hidden
-        />
-      )}
-    </p>
+    <div className="relative min-h-[3rem] max-w-2xl text-center">
+      <p
+        className="text-lg font-medium tracking-wide text-indigo-100/90 sm:text-xl md:text-2xl"
+        aria-label={currentMsg}
+      >
+        <span>{currentMsg.slice(0, len)}</span>
+        {typing && (
+          <span
+            className="ml-1 inline-block h-[1.1em] w-[2px] translate-y-[0.1em] animate-pulse bg-sky-400 align-middle"
+            aria-hidden
+          />
+        )}
+      </p>
+    </div>
   )
 }
 
-export default function HomeHeroBrand() {
+export default function HomeHeroBrand({ onOpenLogin }) {
   return (
-    <div className="flex w-full flex-col items-center justify-center gap-6 px-2 sm:gap-7">
-      <header className="max-w-xl text-center">
-        <p className="text-lg font-medium leading-snug text-white/90 sm:text-xl">
-          Urganch davlat Pedagogika Instituti
-        </p>
-      </header>
-      <div
-        className="relative inline-block text-center drop-shadow-[0_6px_28px_rgba(0,0,0,0.22)]"
-        style={{ color: BRAND }}
-        aria-label="110 ballik tizim"
-      >
-        <span
-          className="flex items-baseline justify-center gap-[0.03em] font-black leading-[0.82] tracking-[-0.07em] antialiased"
-          style={{
-            fontSize: "clamp(5.5rem, 28vw, 14rem)",
-          }}
-        >
-          <span
-            className="inline-block [clip-path:polygon(0_11%,_13%_0,_100%_0,_100%_100%,_0_100%)]"
-            aria-hidden
-          >
-            1
+    <div className="relative z-10 flex w-full flex-col items-center justify-center gap-8 text-center sm:gap-10">
+      {/* Decorative ambient background glows */}
+      <div className="pointer-events-none absolute -top-24 left-1/2 h-72 w-72 -translate-x-1/2 rounded-full bg-gradient-to-tr from-indigo-500/25 via-sky-500/20 to-purple-500/25 blur-3xl" />
+      <div className="pointer-events-none absolute -bottom-20 right-10 h-60 w-60 rounded-full bg-blue-600/15 blur-3xl" />
+
+      {/* Top Header Badge */}
+      <div className="flex flex-col items-center gap-3">
+        <div className="inline-flex items-center gap-2 rounded-full border border-sky-400/30 bg-sky-500/10 px-4 py-1.5 text-xs font-semibold tracking-wider text-sky-200 shadow-inner backdrop-blur-md">
+          <Sparkles className="h-4 w-4 animate-pulse text-sky-400" />
+          <span>Urganch Davlat Pedagogika Instituti</span>
+        </div>
+
+        {/* Main Title: Tyutorlarni KPI Tizimi */}
+        <h1 className="mt-2 text-4xl font-extrabold tracking-tight text-white sm:text-6xl md:text-7xl">
+          <span className="block drop-shadow-lg">TYUTORLARNI</span>
+          <span className="mt-1 block bg-gradient-to-r from-sky-300 via-indigo-200 to-purple-300 bg-clip-text text-transparent drop-shadow-sm">
+            KPI TIZIMI
           </span>
-          <span
-            className="inline-block [clip-path:polygon(0_11%,_13%_0,_100%_0,_100%_100%,_0_100%)]"
-            aria-hidden
+        </h1>
+      </div>
+
+      {/* Animated Typewriter Subtitle */}
+      <WelcomeTypewriter />
+
+      {/* Action Button */}
+      {onOpenLogin && (
+        <div className="pt-1">
+          <button
+            type="button"
+            onClick={onOpenLogin}
+            className="group relative inline-flex items-center gap-3 overflow-hidden rounded-2xl bg-gradient-to-r from-indigo-600 via-indigo-500 to-purple-600 px-8 py-4 text-base font-bold text-white shadow-xl shadow-indigo-600/30 transition-all duration-300 hover:scale-105 hover:from-indigo-500 hover:to-purple-500 hover:shadow-indigo-500/50 active:scale-95"
           >
-            1
-          </span>
-          <span className="inline-block rounded-[0.14em] px-[0.02em]">0</span>
-        </span>
-        <div
-          className="pointer-events-none absolute left-1/2 top-[48%] z-10 flex w-[108%] max-w-[min(100%,42rem)] -translate-x-1/2 -translate-y-1/2 items-center justify-center bg-white py-[0.22em] shadow-[0_0_0_1px_rgba(43,89,173,0.08)]"
-          aria-hidden
-        >
-          <span
-            className="whitespace-nowrap font-bold uppercase tracking-[0.22em] sm:tracking-[0.32em]"
-            style={{
-              color: BRAND,
-              fontSize: "clamp(0.65rem, 3vw, 1.05rem)",
-            }}
-          >
-            Ballik tizimga
-          </span>
+            <span className="absolute inset-0 bg-white/20 opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
+            <LogIn className="h-5 w-5 transition-transform duration-300 group-hover:translate-x-1" />
+            <span>Tizimga kirish</span>
+          </button>
+        </div>
+      )}
+
+      {/* Feature Highlights Grid */}
+      <div className="mt-4 grid w-full grid-cols-1 gap-4 sm:grid-cols-3 sm:gap-6">
+        <div className="group rounded-2xl border border-white/10 bg-white/5 p-5 text-left backdrop-blur-md transition-all duration-300 hover:border-sky-400/40 hover:bg-white/10 hover:shadow-lg hover:shadow-sky-500/10">
+          <div className="mb-3 flex h-10 w-10 items-center justify-center rounded-xl bg-sky-500/20 text-sky-300 transition-transform duration-300 group-hover:scale-110">
+            <Award className="h-5 w-5" />
+          </div>
+          <h3 className="text-base font-bold text-white">Shaffof KPI Baholash</h3>
+          <p className="mt-1 text-xs leading-relaxed text-slate-300">
+            Tyutorlar faoliyatini tasdiqlangan mezonlar bo'yicha adolatli va aniq baholash.
+          </p>
+        </div>
+
+        <div className="group rounded-2xl border border-white/10 bg-white/5 p-5 text-left backdrop-blur-md transition-all duration-300 hover:border-indigo-400/40 hover:bg-white/10 hover:shadow-lg hover:shadow-indigo-500/10">
+          <div className="mb-3 flex h-10 w-10 items-center justify-center rounded-xl bg-indigo-500/20 text-indigo-300 transition-transform duration-300 group-hover:scale-110">
+            <FileCheck className="h-5 w-5" />
+          </div>
+          <h3 className="text-base font-bold text-white">Hujjatlar Monitoringi</h3>
+          <p className="mt-1 text-xs leading-relaxed text-slate-300">
+            Tasdiqlovchi hujjatlarni qulay biriktirish va ekspertlar tomonidan tezkor tekshirilishi.
+          </p>
+        </div>
+
+        <div className="group rounded-2xl border border-white/10 bg-white/5 p-5 text-left backdrop-blur-md transition-all duration-300 hover:border-purple-400/40 hover:bg-white/10 hover:shadow-lg hover:shadow-purple-500/10">
+          <div className="mb-3 flex h-10 w-10 items-center justify-center rounded-xl bg-purple-500/20 text-purple-300 transition-transform duration-300 group-hover:scale-110">
+            <TrendingUp className="h-5 w-5" />
+          </div>
+          <h3 className="text-base font-bold text-white">Reyting & Statistika</h3>
+          <p className="mt-1 text-xs leading-relaxed text-slate-300">
+            Real-vaqt rejimida fakultet va bo'limlar kesimidagi reyting hamda umumiy ko'rsatkichlar.
+          </p>
         </div>
       </div>
-      <WelcomeTypewriter />
+
+      {/* Footer System Badge */}
+      <div className="flex items-center gap-2 text-xs text-indigo-200/60">
+        <ShieldCheck className="h-4 w-4 text-emerald-400" />
+        <span>UrSPI Rasmiy Avtomatlashtirilgan Axborot Tizimi</span>
+      </div>
     </div>
   )
 }
