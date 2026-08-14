@@ -109,7 +109,7 @@ function mapTeacherOne(payload, facultyNames, departmentNames) {
   const data = unwrapPayload(payload)
   const item = Array.isArray(data) ? data[0] : data
   const mapped = mapTeacher(item, facultyNames, departmentNames)
-  if (!mapped) throw new Error("O'qituvchi ma'lumotlari noto'g'ri formatda qaytdi")
+  if (!mapped) throw new Error("Tyutor ma'lumotlari noto'g'ri formatda qaytdi")
   return mapped
 }
 

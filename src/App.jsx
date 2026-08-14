@@ -32,7 +32,7 @@ const ROLE_LABELS = {
   admin: "Administrator",
   head: "Kafedra mudiri",
   dean: "Dekan",
-  teacher: "O'qituvchi",
+  teacher: "Tyutor",
   expert: "Ekspert/Tekshiruvchi",
 }
 
@@ -125,7 +125,7 @@ function findTeacherByLogin(list, login) {
 
 function isTeacherAccount(user) {
   if (!user) return false
-  if (user.role === "O'qituvchi" || user.role === "teacher") return true
+  if (user.role === "O'qituvchi" || user.role === "Tyutor" || user.role === "teacher") return true
   return Array.isArray(user.roles) && user.roles.some((role) => String(role).toUpperCase() === "TEACHER")
 }
 
@@ -297,7 +297,7 @@ function App() {
       setSelectedTeacherId((prev) => prev || list[0]?.id || "")
       setTeacherLoadError("")
     } catch (error) {
-      setTeacherLoadError(error instanceof Error ? error.message : "O'qituvchilarni yuklab bo'lmadi")
+      setTeacherLoadError(error instanceof Error ? error.message : "Tyutorlarni yuklab bo'lmadi")
     } finally {
       setTeachersLoading(false)
     }
@@ -803,7 +803,7 @@ function App() {
       setNewTeacherForm({ fullName: "", login: "", password: "", departmentId, positionId })
       setNewTeacherError("")
     } catch (error) {
-      setNewTeacherError(error instanceof Error ? error.message : "O'qituvchini saqlab bo'lmadi.")
+      setNewTeacherError(error instanceof Error ? error.message : "Tyutorni saqlab bo'lmadi.")
     }
   }
 
@@ -997,7 +997,7 @@ function App() {
         <>
           {!isTeacherUser(currentUser) && currentUser?.role !== "expert" && (
             <div className="rounded-2xl border border-slate-200 bg-white p-4 shadow-sm">
-              <label className="text-sm font-medium text-slate-700">O'qituvchini tanlang</label>
+              <label className="text-sm font-medium text-slate-700">Tyutorni tanlang</label>
               <select
                 value={selectedTeacherId}
                 onChange={(e) => setSelectedTeacherId(e.target.value)}
@@ -1136,7 +1136,7 @@ function App() {
 
           {currentUser?.role === "admin" && (
             <article className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
-              <h3 className="text-lg font-semibold text-slate-900">O'qituvchi login/parolini berish</h3>
+              <h3 className="text-lg font-semibold text-slate-900">Tyutor login/parolini berish</h3>
               <form onSubmit={createTeacherAccount} className="mt-3 grid gap-3 md:grid-cols-2">
                 <label className="text-sm">
                   <span className="mb-1 block font-medium text-slate-700">Kafedra</span>
@@ -1182,7 +1182,7 @@ function App() {
                   <input
                     value={newTeacherForm.fullName}
                     onChange={(e) => setNewTeacherForm((prev) => ({ ...prev, fullName: e.target.value }))}
-                    placeholder="O'qituvchi F.I.O"
+                    placeholder="Tyutor F.I.O"
                     className="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm"
                   />
                 </label>
@@ -1227,7 +1227,7 @@ function App() {
                   }
                   className="rounded-lg bg-indigo-600 px-3 py-2 text-sm font-semibold text-white md:col-span-2"
                 >
-                  O'qituvchini qo'shish
+                  Tyutorni qo'shish
                 </button>
               </form>
               {departmentsError && (
@@ -1247,7 +1247,7 @@ function App() {
               )}
               {teacherLoadError && (
                 <p className="mt-2 rounded-md bg-amber-50 px-3 py-2 text-sm text-amber-700 ring-1 ring-amber-100">
-                  O'qituvchilarni API dan olishda xatolik: {teacherLoadError}
+                  Tyutorlarni API dan olishda xatolik: {teacherLoadError}
                 </p>
               )}
             </article>
@@ -1359,7 +1359,7 @@ function App() {
             {!isTeacherUser(currentUser) && activeTeacher && (
               <div className="rounded-2xl border border-indigo-200 bg-indigo-50 p-4 shadow-sm text-center">
                 <p className="text-xs font-semibold uppercase tracking-wide text-indigo-600">
-                  Baholanayotgan o'qituvchi
+                  Baholanayotgan tyutor
                 </p>
                 <p className="mt-1 text-lg font-bold text-slate-900">{activeTeacher.fullName}</p>
                 <div className="mt-2 flex flex-wrap justify-center gap-x-4 gap-y-1 text-sm text-slate-600">
@@ -1392,7 +1392,7 @@ function App() {
                   className="mt-4 inline-flex items-center gap-2 rounded-lg border border-indigo-300 bg-white px-4 py-2 text-sm font-semibold text-indigo-700 transition-colors hover:bg-indigo-50"
                 >
                   <ArrowLeft className="h-4 w-4" strokeWidth={2} />
-                  O'qituvchilar ro'yxatiga qaytish
+                  Tyutorlar ro'yxatiga qaytish
                 </button>
               </div>
             )}

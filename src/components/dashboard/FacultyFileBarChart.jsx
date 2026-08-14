@@ -118,7 +118,7 @@ export default function FacultyFileBarChart({ dark = false }) {
     <ThemeProvider theme={appliedTheme}>
       <article className={`rounded-xl border p-5 ${cardBase}`}>
         <h3 className={`text-lg font-semibold ${titleClr}`}>
-          Fakultet o'qituvchilari yuklagan fayllar
+          Fakultet tyutorlari yuklagan fayllar
         </h3>
         <p className={`mt-1 text-sm ${subtitle}`}>
           Har bir fakultet bo'yicha jami yuklangan fayllar soni

@@ -215,7 +215,7 @@ export default function Users({ dark, permissions = [], isAdmin = false }) {
         fetchPermissionsCatalog().catch(() => []),
       ])
       setPermissionOptions(mergePermissionOptionsFromCatalog(catalog))
-      setRows(list.filter((u) => u.role !== "O'qituvchi").map((u) => ({ ...u, password: "" })))
+      setRows(list.filter((u) => u.role !== "O'qituvchi" && u.role !== "Tyutor").map((u) => ({ ...u, password: "" })))
     } catch (err) {
       const message = err instanceof Error ? err.message : "Foydalanuvchilarni yuklab bo'lmadi"
       setLoadError(message)

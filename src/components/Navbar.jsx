@@ -48,7 +48,7 @@ export default function Navbar({
                           : "border border-white/25 bg-slate-700/50 text-white/90"
                       }`}
                     >
-                      O'qituvchilar
+                      Tyutorlar
                     </button>
                   )}
                   {currentUser?.role !== "expert" && (
@@ -160,7 +160,7 @@ export default function Navbar({
           {currentUser && (
             <div className="border-b border-white/10 px-5 py-4">
               <p className="text-xs font-medium uppercase tracking-wider text-indigo-300">
-                O'qituvchi
+                Tyutor
               </p>
               <p className="mt-1 text-base font-bold text-white">
                 {currentUser.fullName}
@@ -201,7 +201,7 @@ export default function Navbar({
                 <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-white/10 text-base">
                   👥
                 </span>
-                O'qituvchilar
+                Tyutorlar
               </button>
             )}
 

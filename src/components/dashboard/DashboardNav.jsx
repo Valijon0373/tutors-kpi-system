@@ -21,7 +21,7 @@ export const DASHBOARD_NAV = [
   { id: "kafedralar", label: "Kafedralar", Icon: GraduationCap },
   { id: "lavozim", label: "Lavozim", Icon: FileText },
   { id: "foydalanuvchilar", label: "Foydalanuvchilar", Icon: User },
-  { id: "oqituvchilar", label: "O'qituvchilar", Icon: Users },
+  { id: "oqituvchilar", label: "Tyutorlar", Icon: Users },
   { id: "mezonlar", label: "Mezonlar", Icon: ClipboardCheck },
   { id: "biz-haqimizda", label: "Biz haqimizda", Icon: Info },
 ]

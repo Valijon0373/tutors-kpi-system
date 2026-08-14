@@ -30,10 +30,10 @@ export const PERMISSION_LABELS_UZ = {
   CRITERIA_EDIT: "Mezonni tahrirlash",
   CRITERIA_DELETE: "Mezonni o'chirish",
 
-  TEACHER_VIEW: "O'qituvchilarni ko'rish",
-  TEACHER_CREATE: "O'qituvchi qo'shish",
-  TEACHER_EDIT: "O'qituvchini tahrirlash",
-  TEACHER_DELETE: "O'qituvchini o'chirish",
+  TEACHER_VIEW: "Tyutorlarni ko'rish",
+  TEACHER_CREATE: "Tyutor qo'shish",
+  TEACHER_EDIT: "Tyutorni tahrirlash",
+  TEACHER_DELETE: "Tyutorni o'chirish",
 
   DOCUMENT_VIEW: "Hujjatlarni ko'rish",
   DOCUMENT_CREATE: "Hujjat qo'shish",

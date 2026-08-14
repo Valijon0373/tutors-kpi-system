@@ -792,7 +792,7 @@ export default function Criteria({ dark, permissions = [], isAdmin = false }) {
                 <span className="text-base font-semibold">Hujjat yuklash talab qilinadi</span>
               </label>
               <p className={`text-sm ${subtitle}`}>
-                Yoqilsa, o'qituvchi ushbu mezon uchun fayl yuklash imkoniyatiga ega bo'ladi.
+                Yoqilsa, tyutor ushbu mezon uchun fayl yuklash imkoniyatiga ega bo'ladi.
               </p>
             </div>
           </div>

@@ -14,7 +14,7 @@ import { extractApiRoles, normalizeApiRoleToken } from "./roles"
 const UI_ROLE_BY_API = {
   ADMIN: "Admin",
   // Teacher roli Users sahifasida alohida ajratiladi
-  TEACHER: "O'qituvchi",
+  TEACHER: "Tyutor",
   USER: "Foydalanuvchi",
   // Ba'zi backendlarda komissiya roli MODERATOR/COMMISSION ko'rinishida keladi
   MODERATOR: "Komissiya",
@@ -27,6 +27,7 @@ const API_ROLE_BY_UI = {
   // Backend "TEACHER"ni tanimasa, ko'pincha "USER" ishlatiladi
   "Foydalanuvchi": "USER",
   "O'qituvchi": "TEACHER",
+  "Tyutor": "TEACHER",
   // Backend "MODERATOR"ni tanimasa, ko'pincha "COMMISSION" ishlatiladi
   Komissiya: "COMMISSION",
 }

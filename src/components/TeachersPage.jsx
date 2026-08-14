@@ -179,7 +179,7 @@ export default function TeacherPage({
             <div className="space-y-5">
               <div className="flex flex-wrap items-center justify-between gap-3">
                 <h2 className="text-xl font-bold tracking-tight text-slate-900">
-                  O'qituvchilar{" "}
+                  Tyutorlar{" "}
                   <span className="inline-flex items-center justify-center rounded-full bg-indigo-100 px-3 py-0.5 text-lg font-bold text-indigo-700 align-baseline">
                     {animatedTeacherCount}
                   </span>
@@ -215,7 +215,7 @@ export default function TeacherPage({
 
               {loadError && (
                 <p className="rounded-xl border border-amber-200 bg-amber-50 px-4 py-3 text-sm text-amber-700">
-                  O'qituvchilarni API dan yuklashda xatolik: {loadError}
+                  Tyutorlarni API dan yuklashda xatolik: {loadError}
                 </p>
               )}
 
@@ -260,7 +260,7 @@ export default function TeacherPage({
                   onKeyDown={(e) => {
                     if (e.key === "Enter") setSearchQuery(searchDraft)
                   }}
-                  placeholder="O'qituvchini izlash"
+                  placeholder="Tyutorni izlash"
                   className="w-full min-w-0 flex-[1.5] rounded-lg border border-slate-200 bg-white px-4 py-2.5 text-sm text-slate-900 placeholder:text-slate-400 outline-none transition-shadow focus:border-teal-500 focus:ring-2 focus:ring-teal-500/20 sm:min-w-[12rem]"
                 />
                 <button
@@ -313,7 +313,7 @@ export default function TeacherPage({
                         >
                           <div className="flex flex-col items-center justify-center gap-3">
                             <Commet color="#4f46e5" size="medium" text="" textColor="" />
-                            <p className="text-sm text-slate-500">O'qituvchilar yuklanmoqda...</p>
+                            <p className="text-sm text-slate-500">Tyutorlar yuklanmoqda...</p>
                           </div>
                         </td>
                       </tr>
@@ -414,8 +414,8 @@ export default function TeacherPage({
                           {searchQuery || facultyFilter !== "all" || departmentFilter !== "all"
                             ? "Qidiruv bo'yicha natija topilmadi."
                             : totalTeachers === 0
-                              ? "API dan o'qituvchilar topilmadi. Tizimga API orqali kiring."
-                              : "Hozircha o'qituvchilar ro'yxati bo'sh."}
+                              ? "API dan tyutorlar topilmadi. Tizimga API orqali kiring."
+                              : "Hozircha tyutorlar ro'yxati bo'sh."}
                         </td>
                       </tr>
                     )}

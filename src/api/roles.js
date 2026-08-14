@@ -114,7 +114,7 @@ export function resolveMainAppRole({ user, matchedTeacher, tokenRoles = [] }) {
   if (isExpertApiRoles(unique)) return "expert"
   if (unique.includes("HEAD")) return "head"
   if (unique.includes("DEAN")) return "dean"
-  if (isTeacherApiRoles(unique) || uiRole === "O'qituvchi") return "teacher"
+  if (isTeacherApiRoles(unique) || uiRole === "O'qituvchi" || uiRole === "Tyutor") return "teacher"
   return "expert"
 }
 
