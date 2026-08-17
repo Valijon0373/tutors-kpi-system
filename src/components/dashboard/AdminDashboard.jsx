@@ -13,11 +13,11 @@ import logoImg from "../../assets/logo.jpg"
 import DashboardNav, { DASHBOARD_NAV, getDashboardNavLabel } from "./DashboardNav"
 import EvaluationSummaryCards from "./EvaluationSummaryCards"
 import Faculties from "./Faculties"
-import Departments from "./Departments"
 import Positions from "./Positions"
 import Users from "./Users"
 import Teachers from "./Teachers"
 import Criteria from "./Criteria"
+import Settings from "./Settings"
 import AboutUs from "./AboutUs"
 import AdminLogin from "../../components/admin/AdminLogin"
 import { getAuthUsername, logout as apiLogout, verifyAdminSession } from "../../api/auth"
@@ -230,8 +230,6 @@ export default function AdminDashboard() {
 
     const ids = ["dashboard", "biz-haqimizda"]
     if (hasAnyPermission(["faculty_view", "faculty_create", "faculty_edit", "faculty_delete"])) ids.push("fakultetlar")
-    if (hasAnyPermission(["department_view", "department_create", "department_edit", "department_delete"]))
-      ids.push("kafedralar")
     if (hasAnyPermission(["position_view", "position_create", "position_edit", "position_delete"])) ids.push("lavozim")
     if (hasAnyPermission(["user_view", "user_create", "user_edit", "user_delete"])) ids.push("foydalanuvchilar")
     if (hasAnyPermission(["teacher_view", "teacher_create", "teacher_edit", "teacher_delete"])) ids.push("oqituvchilar")
@@ -241,8 +239,12 @@ export default function AdminDashboard() {
     ) {
       ids.push("mezonlar")
     }
+    if (isAdmin || hasAnyPermission(["user_edit", "user_create", "user_delete"])) {
+      ids.push("sozlamalar")
+    }
 
     return ids
+
   }, [currentPermissions, hasAnyPermission, isAdmin])
 
   useEffect(() => {
@@ -456,7 +458,7 @@ export default function AdminDashboard() {
               <div className="space-y-6">
                 <EvaluationSummaryCards dark={dark} totalFiles={totalFiles} />
 
-                <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+                <div className="grid gap-4 sm:grid-cols-2">
                   <article
                     className={`dashboard-stat-in rounded-xl border p-5 shadow-sm ${dark ? "border-slate-700 bg-slate-800" : "border-slate-100 bg-white"}`}
                     style={{ animationDelay: "0ms" }}
@@ -473,26 +475,6 @@ export default function AdminDashboard() {
                         <p className={`text-sm ${dark ? "text-slate-400" : "text-slate-500"}`}>Fakultetlar</p>
                         <p className={`mt-2 text-3xl font-bold tabular-nums ${dark ? "text-blue-400" : "text-blue-600"}`}>
                           {STATS.fakultetlar}
-                        </p>
-                      </div>
-                    </div>
-                  </article>
-                  <article
-                    className={`dashboard-stat-in rounded-xl border p-5 shadow-sm ${dark ? "border-slate-700 bg-slate-800" : "border-slate-100 bg-white"}`}
-                    style={{ animationDelay: "85ms" }}
-                  >
-                    <div className="flex items-start gap-4">
-                      <div
-                        className={`flex h-12 w-12 shrink-0 items-center justify-center rounded-xl ${
-                          dark ? "bg-emerald-500/15 text-emerald-400" : "bg-emerald-50 text-emerald-600"
-                        }`}
-                      >
-                        <GraduationCap className="h-6 w-6" strokeWidth={2} aria-hidden />
-                      </div>
-                      <div className="min-w-0">
-                        <p className={`text-sm ${dark ? "text-slate-400" : "text-slate-500"}`}>Kafedralar</p>
-                        <p className={`mt-2 text-3xl font-bold tabular-nums ${dark ? "text-emerald-400" : "text-emerald-600"}`}>
-                          {STATS.kafedralar}
                         </p>
                       </div>
                     </div>
@@ -528,7 +510,6 @@ export default function AdminDashboard() {
             )}
 
             {activeNav === "fakultetlar" && <Faculties dark={dark} permissions={currentPermissions} isAdmin={isAdmin} />}
-            {activeNav === "kafedralar" && <Departments dark={dark} permissions={currentPermissions} isAdmin={isAdmin} />}
             {activeNav === "lavozim" && <Positions dark={dark} permissions={currentPermissions} isAdmin={isAdmin} />}
             {activeNav === "foydalanuvchilar" && visibleNavIds.includes("foydalanuvchilar") && (
               <Users dark={dark} permissions={currentPermissions} isAdmin={isAdmin} />
@@ -537,7 +518,9 @@ export default function AdminDashboard() {
             {activeNav === "mezonlar" && (
               <Criteria dark={dark} permissions={currentPermissions} isAdmin={isAdmin} />
             )}
+            {activeNav === "sozlamalar" && <Settings dark={dark} permissions={currentPermissions} isAdmin={isAdmin} />}
             {activeNav === "biz-haqimizda" && <AboutUs dark={dark} />}
+
           </div>
         </main>
       </div>

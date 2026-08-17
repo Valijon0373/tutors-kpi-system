@@ -341,3 +341,16 @@ export async function checkUsernameAvailable(username) {
   }
   return true
 }
+
+/**
+ * PUT /api/users/change/password — foydalanuvchi parolini o'zgartirish
+ * @param {string} username
+ * @param {string} newPassword
+ */
+export async function changeUserPassword(username, newPassword) {
+  await apiRequest("/api/users/change/password", {
+    method: "PUT",
+    body: JSON.stringify({ username, newPassword }),
+  })
+}
+

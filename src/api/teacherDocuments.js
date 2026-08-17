@@ -1,5 +1,7 @@
 import { apiRequest, unwrapPayload } from "./client"
 import { getFileDownloadUrl } from "./files"
+import { fetchAllTeachers } from "./teachers"
+
 
 /**
  * @typedef {{
@@ -395,8 +397,8 @@ export async function fetchFileCountByFaculty() {
   const map = new Map()
   try {
     // Build teacherId → facultyName lookup
-    const { fetchAllTeachers } = await import("./teachers")
     const teachers = await fetchAllTeachers()
+
     /** @type {Record<string, string>} */
     const teacherFaculty = {}
     for (const t of teachers) {

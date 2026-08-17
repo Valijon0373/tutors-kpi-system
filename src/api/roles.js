@@ -1,3 +1,5 @@
+import { apiRequest, unwrapPayload } from "./client"
+
 /**
  * Backend rollarini (ROLE_MODERATOR, { authority: "..." } va h.k.) bir xil formatga keltiradi.
  */
@@ -132,3 +134,49 @@ export function canAccessMainApp({ user, matchedTeacher, tokenRoles = [] }) {
   if (isStaffApiRoles(tokenRoles) || isExpertApiRoles(tokenRoles)) return true
   return false
 }
+
+/**
+ * GET /api/roles — rollar va ularga biriktirilgan ruxsatlar ro'yxati
+ * @returns {Promise<{ id: number, name: string, permissions: string[] }[]>}
+ */
+export async function fetchAllRoles() {
+  const json = await apiRequest("/api/roles")
+  const data = unwrapPayload(json)
+  return Array.isArray(data) ? data : []
+}
+
+/**
+ * GET /api/roles/{name} — nom bo'yicha rolni topish
+ * @param {string} name
+ * @returns {Promise<{ id: number, name: string, permissions: string[] }>}
+ */
+export async function fetchRoleByName(name) {
+  const json = await apiRequest(`/api/roles/${encodeURIComponent(name)}`)
+  const data = unwrapPayload(json)
+  return /** @type {any} */ (data)
+}
+
+/**
+ * PUT /api/roles/{name}/permissions — rolga ruxsatlarni biriktirish/almashtirish
+ * @param {string} name
+ * @param {string[]} permissions
+ * @returns {Promise<any>}
+ */
+export async function setRolePermissions(name, permissions) {
+  const json = await apiRequest(`/api/roles/${encodeURIComponent(name)}/permissions`, {
+    method: "PUT",
+    body: JSON.stringify({ permissions }),
+  })
+  return unwrapPayload(json)
+}
+
+/**
+ * GET /api/permissions — tizimdagi barcha ruxsatlar ro'yxati
+ * @returns {Promise<{ id: number, name: string }[]>}
+ */
+export async function fetchAllPermissions() {
+  const json = await apiRequest("/api/permissions")
+  const data = unwrapPayload(json)
+  return Array.isArray(data) ? data : []
+}
+

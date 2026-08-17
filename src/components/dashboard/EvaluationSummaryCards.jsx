@@ -9,13 +9,6 @@ export default function EvaluationSummaryCards({ dark, totalFiles = 0 }) {
 
   const statCards = [
     {
-      key: "max",
-      icon: Trophy,
-      iconWrap: dark ? "bg-emerald-500/15 text-emerald-400" : "bg-emerald-50 text-emerald-600",
-      value: `${TOTAL_MAX_SCORE} / ${TOTAL_MAX_SCORE}`,
-      label: "Jami maksimal ball",
-    },
-    {
       key: "files",
       icon: FileText,
       iconWrap: dark ? "bg-teal-500/15 text-teal-300" : "bg-teal-50 text-teal-600",
@@ -30,6 +23,7 @@ export default function EvaluationSummaryCards({ dark, totalFiles = 0 }) {
       label: "Mezonlar soni",
     },
   ]
+
 
   return (
     <div className="space-y-4">

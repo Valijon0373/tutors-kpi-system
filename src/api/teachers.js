@@ -241,11 +241,27 @@ export async function deleteTeacher(id) {
 }
 
 /**
- * GET /api/teachers/resource/info — komissiya uchun o'qituvchilarning resurs ma'lumotlari.
+ * GET /api/tutors/me — Joriy tyutorni olish
+ * @returns {Promise<TeacherRow>}
+ */
+export async function fetchCurrentTutor() {
+  const json = await apiRequest("/api/tutors/me")
+  return mapTeacherOne(json)
+}
+
+/**
+ * GET /api/tutors/resource/info — komissiya uchun o'qituvchilarning resurs ma'lumotlari.
+ * @param {number | string} [seasonId]
+ * @param {number | string} [academicYearId]
  * @returns {Promise<TeacherResourceInfo[]>}
  */
-export async function fetchTeachersResourceInfo() {
-  const json = await apiRequest("/api/teachers/resource/info")
+export async function fetchTeachersResourceInfo(seasonId, academicYearId) {
+  const params = new URLSearchParams()
+  if (seasonId) params.append("seasonId", String(seasonId))
+  if (academicYearId) params.append("academicYearId", String(academicYearId))
+  const qs = params.toString() ? `?${params.toString()}` : ""
+
+  const json = await apiRequest(`/api/tutors/resource/info${qs}`)
   const data = unwrapPayload(json)
   const list = Array.isArray(data) ? data : data && typeof data === "object" ? [data] : []
 
@@ -321,13 +337,20 @@ export async function fetchTeachersResourceInfo() {
 }
 
 /**
- * GET /api/teachers/rating/info — komissiya profildagi reyting.
+ * GET /api/tutors/rating/info — komissiya profildagi reyting.
  * Balli yuqorisini tepadan saralab qaytaradi.
+ * @param {number | string} [seasonId]
+ * @param {number | string} [academicYearId]
  * @typedef {{ teacherName: string, rating: number }} TeacherRatingInfo
  * @returns {Promise<TeacherRatingInfo[]>}
  */
-export async function fetchTeachersRatingInfo() {
-  const json = await apiRequest("/api/teachers/rating/info")
+export async function fetchTeachersRatingInfo(seasonId, academicYearId) {
+  const params = new URLSearchParams()
+  if (seasonId) params.append("seasonId", String(seasonId))
+  if (academicYearId) params.append("academicYearId", String(academicYearId))
+  const qs = params.toString() ? `?${params.toString()}` : ""
+
+  const json = await apiRequest(`/api/tutors/rating/info${qs}`)
   const data = unwrapPayload(json)
   const list = Array.isArray(data) ? data : data && typeof data === "object" ? [data] : []
 
@@ -347,12 +370,19 @@ export async function fetchTeachersRatingInfo() {
 }
 
 /**
- * GET /api/teachers/teachers-resource-info/excel — Excel faylni yuklab olish.
+ * GET /api/tutors/tutors-resource-info/excel — Excel faylni yuklab olish.
  * Brauzerda fayl sifatida saqlaydi.
+ * @param {number | string} [seasonId]
+ * @param {number | string} [academicYearId]
  */
-export async function downloadTeachersResourceInfoExcel() {
+export async function downloadTeachersResourceInfoExcel(seasonId, academicYearId) {
   const API_BASE = (import.meta.env.VITE_API_BASE_URL ?? "").replace(/\/$/, "")
-  const path = "/api/teachers/teachers-resource-info/excel"
+  const params = new URLSearchParams()
+  if (seasonId) params.append("seasonId", String(seasonId))
+  if (academicYearId) params.append("academicYearId", String(academicYearId))
+  const qs = params.toString() ? `?${params.toString()}` : ""
+
+  const path = `/api/tutors/tutors-resource-info/excel${qs}`
   const url = API_BASE ? `${API_BASE}${path}` : path
 
   const token =
@@ -384,3 +414,4 @@ export async function downloadTeachersResourceInfoExcel() {
   document.body.removeChild(link)
   URL.revokeObjectURL(blobUrl)
 }
+

@@ -48,7 +48,15 @@ export const PERMISSION_LABELS_UZ = {
   PERMISSION_VIEW: "Ruxsatlarni ko'rish",
   PERMISSION_CREATE: "Ruxsat qo'shish",
   PERMISSION_EDIT: "Ruxsatni tahrirlash",
-  PERMISSION_DELETE: "Ruxsatni o'chirish",
+  ACADEMIC_YEAR_VIEW: "O'quv yillarini ko'rish",
+  ACADEMIC_YEAR_CREATE: "O'quv yili yaratish",
+  ACADEMIC_YEAR_EDIT: "O'quv yilini tahrirlash",
+  ACADEMIC_YEAR_DELETE: "O'quv yilini o'chirish",
+
+  TUTOR_VIEW: "Tyutorlarni ko'rish",
+  TUTOR_CREATE: "Tyutor qo'shish",
+  TUTOR_EDIT: "Tyutorni tahrirlash",
+  TUTOR_DELETE: "Tyutorni o'chirish",
 
   FILE_UPLOAD: "Faylni yuklash",
 }
