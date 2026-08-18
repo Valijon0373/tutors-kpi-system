@@ -73,8 +73,13 @@ function mapDepartmentOne(payload, facultyNames) {
 
 /** @param {Record<string, string>} [facultyNames] @returns {Promise<DepartmentRow[]>} */
 export async function fetchAllDepartments(facultyNames) {
-  const json = await apiRequest("/api/departments/all")
-  return mapDepartmentList(json, facultyNames)
+  try {
+    const json = await apiRequest("/api/departments/all")
+    return mapDepartmentList(json, facultyNames)
+  } catch (err) {
+    console.warn("fetchAllDepartments warning:", err)
+    return []
+  }
 }
 
 /** @param {string | number} facultyId @param {Record<string, string>} [facultyNames] @returns {Promise<DepartmentRow[]>} */

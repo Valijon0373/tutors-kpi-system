@@ -54,8 +54,13 @@ function mapPositionOne(payload) {
 
 /** @returns {Promise<PositionRow[]>} */
 export async function fetchAllPositions() {
-  const json = await apiRequest("/api/positions/all")
-  return mapPositionList(json)
+  try {
+    const json = await apiRequest("/api/positions/all")
+    return mapPositionList(json)
+  } catch (err) {
+    console.warn("fetchAllPositions warning:", err)
+    return []
+  }
 }
 
 /** @param {string | number} id @returns {Promise<PositionRow>} */

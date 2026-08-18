@@ -125,8 +125,18 @@ function tryMapTeacher(payload, facultyNames, departmentNames) {
 
 /** @param {Record<string, string>} [facultyNames] @param {Record<string, string>} [departmentNames] @returns {Promise<TeacherRow[]>} */
 export async function fetchAllTeachers(facultyNames, departmentNames) {
-  const json = await apiRequest("/api/teachers/all")
-  return mapTeacherList(json, facultyNames, departmentNames)
+  try {
+    const json = await apiRequest("/api/teachers/all")
+    return mapTeacherList(json, facultyNames, departmentNames)
+  } catch (err) {
+    try {
+      const jsonAlt = await apiRequest("/api/tutors/all")
+      return mapTeacherList(jsonAlt, facultyNames, departmentNames)
+    } catch {
+      console.warn("fetchAllTeachers warning:", err)
+      return []
+    }
+  }
 }
 
 /** @param {string | number} id @param {Record<string, string>} [facultyNames] @param {Record<string, string>} [departmentNames] @returns {Promise<TeacherRow>} */

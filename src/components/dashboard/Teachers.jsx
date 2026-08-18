@@ -109,13 +109,13 @@ export default function Teachers({ dark }) {
     setLoading(true)
     setLoadError("")
     try {
-      const facList = await fetchAllFaculties()
+      const facList = await fetchAllFaculties().catch(() => [])
       setFaculties(facList)
       const names = Object.fromEntries(facList.map((f) => [f.id, f.nameUz]))
-      const depList = await fetchAllDepartments(names)
+      const depList = await fetchAllDepartments(names).catch(() => [])
       setDepartments(depList)
       const depNames = Object.fromEntries(depList.map((d) => [d.id, d.nameUz]))
-      const posList = await fetchAllPositions()
+      const posList = await fetchAllPositions().catch(() => [])
       setPositions(posList)
       const list = await fetchAllTeachers(names, depNames)
       setRows(
