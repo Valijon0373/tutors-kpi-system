@@ -182,12 +182,10 @@ export default function Teachers({ dark }) {
 
   const openCreate = () => {
     const firstFaculty = faculties[0]?.id ?? ""
-    const firstDepartment = departmentsForFaculty(firstFaculty)[0]?.id ?? ""
-    const firstPosition = positions[0]?.id ?? ""
     setCreateDraft({
       facultyId: firstFaculty,
-      departmentId: firstDepartment,
-      positionId: firstPosition,
+      departmentId: "",
+      positionId: "",
       fio: "",
       login: "",
       password: "",
@@ -201,9 +199,9 @@ export default function Teachers({ dark }) {
 
     const fio = editDraft.fio.trim()
     const facultyId = editDraft.facultyId
-    const departmentId = editDraft.departmentId
-    const positionId = editDraft.positionId
-    if (!fio || !facultyId || !departmentId || !positionId) return
+    const departmentId = editDraft.departmentId || ""
+    const positionId = editDraft.positionId || ""
+    if (!fio || !facultyId) return
 
     setBusy(true)
     try {
@@ -286,9 +284,9 @@ export default function Teachers({ dark }) {
     const login = createDraft.login.trim()
     const password = createDraft.password.trim()
     const facultyId = createDraft.facultyId
-    const departmentId = createDraft.departmentId
-    const positionId = createDraft.positionId
-    if (!fio || !login || !password || !facultyId || !departmentId || !positionId) return
+    const departmentId = createDraft.departmentId || ""
+    const positionId = createDraft.positionId || ""
+    if (!fio || !login || !password || !facultyId) return
 
     setBusy(true)
     try {
@@ -440,19 +438,7 @@ export default function Teachers({ dark }) {
               </option>
             ))}
           </select>
-          <select
-            value={departmentFilter}
-            onChange={(e) => setDepartmentFilter(e.target.value)}
-            disabled={loading}
-            className={`w-full sm:w-auto sm:min-w-[11rem] rounded-lg border px-3 py-2.5 text-sm outline-none ring-teal-500/0 transition-shadow focus:border-teal-500 focus:ring-2 focus:ring-teal-500/20 ${selectInput}`}
-          >
-            <option value="all">Barcha kafedralar</option>
-            {departmentFilterOptions.map((item) => (
-              <option key={item.id} value={item.id}>
-                {item.nameUz}
-              </option>
-            ))}
-          </select>
+
           <input
             value={searchDraft}
             onChange={(e) => setSearchDraft(e.target.value)}
@@ -482,8 +468,6 @@ export default function Teachers({ dark }) {
               <tr>
                 <th className={`border px-4 py-3 text-center text-sm font-bold ${dark ? "border-slate-700" : "border-slate-200"} ${title}`}>№</th>
                 <th className={`border px-4 py-3 text-left text-sm font-bold ${dark ? "border-slate-700" : "border-slate-200"} ${title}`}>Fakultet</th>
-                <th className={`border px-4 py-3 text-left text-sm font-bold ${dark ? "border-slate-700" : "border-slate-200"} ${title}`}>Kafedra</th>
-                <th className={`border px-4 py-3 text-left text-sm font-bold ${dark ? "border-slate-700" : "border-slate-200"} ${title}`}>Lavozim</th>
                 <th className={`border px-4 py-3 text-left text-sm font-bold ${dark ? "border-slate-700" : "border-slate-200"} ${title}`}>F.I.O</th>
                 <th className={`border px-4 py-3 text-left text-sm font-bold ${dark ? "border-slate-700" : "border-slate-200"} ${title}`}>Login</th>
                 <th className={`border px-4 py-3 text-right text-sm font-bold ${dark ? "border-slate-700" : "border-slate-200"} ${title}`}>Amallar</th>
@@ -496,10 +480,6 @@ export default function Teachers({ dark }) {
                     {index + 1}
                   </td>
                   <td className={`border px-4 py-3 text-sm ${dark ? "border-slate-700" : "border-slate-200"} ${subtitle}`}>{row.fakultet}</td>
-                  <td className={`border px-4 py-3 text-sm ${dark ? "border-slate-700" : "border-slate-200"} ${subtitle}`}>{row.kafedra}</td>
-                  <td className={`border px-4 py-3 text-sm ${dark ? "border-slate-700" : "border-slate-200"} ${subtitle}`}>
-                    {positionNames[row.positionId ?? ""] ?? "-"}
-                  </td>
                   <td className={`border px-4 py-3 text-sm font-semibold ${dark ? "border-slate-700" : "border-slate-200"} ${title}`}>{row.fio}</td>
                   <td className={`border px-4 py-3 text-sm ${dark ? "border-slate-700" : "border-slate-200"}`}>
                     <span className={`font-bold ${title}`}>{row.login}</span>
@@ -608,8 +588,6 @@ export default function Teachers({ dark }) {
             </div>
             <div className="space-y-3 text-base">
               <div><p className={`text-xs font-semibold ${meta}`}>Fakultet:</p><p className="mt-1 font-semibold">{modal.row.fakultet}</p></div>
-              <div><p className={`text-xs font-semibold ${meta}`}>Kafedra:</p><p className="mt-1 font-semibold">{modal.row.kafedra}</p></div>
-              <div><p className={`text-xs font-semibold ${meta}`}>Lavozim:</p><p className="mt-1 font-semibold">{positionNames[modal.row.positionId ?? ""] ?? "-"}</p></div>
               <div><p className={`text-xs font-semibold ${meta}`}>F.I.O:</p><p className="mt-1 font-semibold">{modal.row.fio}</p></div>
               <div><p className={`text-xs font-semibold ${meta}`}>Login:</p><p className="mt-1 font-semibold">{modal.row.login}</p></div>
             </div>
@@ -626,8 +604,6 @@ export default function Teachers({ dark }) {
             </div>
             <div className="space-y-4">
               <div className="space-y-2"><label className="text-base font-semibold">Fakultet</label>{renderFacultySelect(editDraft.facultyId, (facultyId) => setEditDraft((p) => ({ ...p, facultyId })), (departmentId) => setEditDraft((p) => ({ ...p, departmentId })))}</div>
-              <div className="space-y-2"><label className="text-base font-semibold">Kafedra</label>{renderDepartmentSelect(editDraft.facultyId, editDraft.departmentId, (departmentId) => setEditDraft((p) => ({ ...p, departmentId })))}</div>
-              <div className="space-y-2"><label className="text-base font-semibold">Lavozim</label>{renderPositionSelect(editDraft.positionId, (positionId) => setEditDraft((p) => ({ ...p, positionId })))}</div>
               <div className="space-y-2"><label className="text-base font-semibold">F.I.O</label><input value={editDraft.fio} onChange={(e) => setEditDraft((p) => ({ ...p, fio: e.target.value }))} disabled={busy} className={`w-full rounded-lg border px-4 py-3 text-base outline-none ring-teal-500/0 transition-shadow focus:border-teal-500 focus:ring-2 focus:ring-teal-500/20 ${input}`} /></div>
             </div>
             <div className="flex flex-wrap items-center gap-3 pt-2">
@@ -705,8 +681,6 @@ export default function Teachers({ dark }) {
             </div>
             <div className="space-y-4">
               <div className="space-y-2"><label className="text-base font-semibold">Fakultet</label>{renderFacultySelect(createDraft.facultyId, (facultyId) => setCreateDraft((p) => ({ ...p, facultyId })), (departmentId) => setCreateDraft((p) => ({ ...p, departmentId })))}</div>
-              <div className="space-y-2"><label className="text-base font-semibold">Kafedra</label>{renderDepartmentSelect(createDraft.facultyId, createDraft.departmentId, (departmentId) => setCreateDraft((p) => ({ ...p, departmentId })))}</div>
-              <div className="space-y-2"><label className="text-base font-semibold">Lavozim</label>{renderPositionSelect(createDraft.positionId, (positionId) => setCreateDraft((p) => ({ ...p, positionId })))}</div>
               <div className="space-y-2"><label className="text-base font-semibold">F.I.O</label><input value={createDraft.fio} onChange={(e) => setCreateDraft((p) => ({ ...p, fio: e.target.value }))} disabled={busy} className={`w-full rounded-lg border px-4 py-3 text-base outline-none ring-teal-500/0 transition-shadow focus:border-teal-500 focus:ring-2 focus:ring-teal-500/20 ${input}`} placeholder="Masalan: F.I.O" /></div>
               <div className="space-y-2"><label className="text-base font-semibold">Login</label><input value={createDraft.login} onChange={(e) => setCreateDraft((p) => ({ ...p, login: e.target.value }))} disabled={busy} className={`w-full rounded-lg border px-4 py-3 text-base outline-none ring-teal-500/0 transition-shadow focus:border-teal-500 focus:ring-2 focus:ring-teal-500/20 ${input}`} placeholder="Teacher.login" /></div>
               <div className="space-y-2">

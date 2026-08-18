@@ -765,13 +765,8 @@ function App() {
     const password = newTeacherForm.password
     const departmentId = newTeacherForm.departmentId.trim()
     const positionId = newTeacherForm.positionId.trim()
-    const department = departments.find((item) => item.id === departmentId)
-    if (!fullName || !login || !password || !departmentId || !positionId) {
-      setNewTeacherError("Ism, login, parol, kafedra va lavozimni to'ldiring.")
-      return
-    }
-    if (!department) {
-      setNewTeacherError("Kafedra topilmadi. Qayta tanlang.")
+    if (!fullName || !login || !password) {
+      setNewTeacherError("Ism, login va parolni to'ldiring.")
       return
     }
     const loginUsed = teachers.some((u) => u.login.toLowerCase() === login.toLowerCase())
@@ -1137,46 +1132,7 @@ function App() {
           {currentUser?.role === "admin" && (
             <article className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
               <h3 className="text-lg font-semibold text-slate-900">Tyutor login/parolini berish</h3>
-              <form onSubmit={createTeacherAccount} className="mt-3 grid gap-3 md:grid-cols-2">
-                <label className="text-sm">
-                  <span className="mb-1 block font-medium text-slate-700">Kafedra</span>
-                  <select
-                    value={newTeacherForm.departmentId}
-                    onChange={(e) =>
-                      setNewTeacherForm((prev) => ({ ...prev, departmentId: e.target.value, positionId: "" }))
-                    }
-                    className="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm"
-                    disabled={departmentsLoading || departments.length === 0}
-                  >
-                    {departmentsLoading && <option value="">Kafedralar yuklanmoqda...</option>}
-                    {!departmentsLoading && departments.length === 0 && <option value="">Kafedra topilmadi</option>}
-                    {departments.map((department) => (
-                      <option key={department.id} value={department.id}>
-                        {department.name}
-                      </option>
-                    ))}
-                  </select>
-                </label>
-                <label className="text-sm">
-                  <span className="mb-1 block font-medium text-slate-700">Lavozim</span>
-                  <select
-                    value={newTeacherForm.positionId}
-                    onChange={(e) => setNewTeacherForm((prev) => ({ ...prev, positionId: e.target.value }))}
-                    className="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm"
-                    disabled={!newTeacherForm.departmentId || positionsLoading || positions.length === 0}
-                  >
-                    {!newTeacherForm.departmentId && <option value="">Avval kafedrani tanlang</option>}
-                    {newTeacherForm.departmentId && positionsLoading && <option value="">Lavozimlar yuklanmoqda...</option>}
-                    {newTeacherForm.departmentId && !positionsLoading && positions.length === 0 && (
-                      <option value="">Lavozim topilmadi</option>
-                    )}
-                    {positions.map((position) => (
-                      <option key={position.id} value={position.id}>
-                        {position.name}
-                      </option>
-                    ))}
-                  </select>
-                </label>
+               <form onSubmit={createTeacherAccount} className="mt-3 grid gap-3 md:grid-cols-2">
                 <label className="text-sm md:col-span-2">
                   <span className="mb-1 block font-medium text-slate-700">F.I.O</span>
                   <input
@@ -1219,11 +1175,9 @@ function App() {
                 <button
                   type="submit"
                   disabled={
-                    departmentsLoading ||
-                    departments.length === 0 ||
-                    !newTeacherForm.departmentId ||
-                    positionsLoading ||
-                    positions.length === 0
+                    !newTeacherForm.fullName ||
+                    !newTeacherForm.login ||
+                    !newTeacherForm.password
                   }
                   className="rounded-lg bg-indigo-600 px-3 py-2 text-sm font-semibold text-white md:col-span-2"
                 >

@@ -285,12 +285,6 @@ export default function TeacherPage({
                         Fakultet
                       </th>
                       <th className="border border-slate-200 px-4 py-3 text-left text-sm font-bold text-slate-900">
-                        Kafedra
-                      </th>
-                      <th className="border border-slate-200 px-4 py-3 text-left text-sm font-bold text-slate-900">
-                        Lavozim
-                      </th>
-                      <th className="border border-slate-200 px-4 py-3 text-left text-sm font-bold text-slate-900">
                         F.I.O
                       </th>
                       <th className="border border-slate-200 px-4 py-3 text-left text-sm font-bold text-slate-900">
@@ -308,7 +302,7 @@ export default function TeacherPage({
                     {isLoading && (
                       <tr>
                         <td
-                          colSpan={8}
+                          colSpan={6}
                           className="border border-slate-200 px-4 py-12 text-center"
                         >
                           <div className="flex flex-col items-center justify-center gap-3">
@@ -334,12 +328,6 @@ export default function TeacherPage({
                             </td>
                             <td className="border border-slate-200 px-4 py-3 text-sm text-slate-500">
                               {row.facultyName}
-                            </td>
-                            <td className="border border-slate-200 px-4 py-3 text-sm text-slate-500">
-                              {row.departmentName}
-                            </td>
-                            <td className="border border-slate-200 px-4 py-3 text-sm text-slate-500">
-                              {row.positionName}
                             </td>
                             <td className="border border-slate-200 px-4 py-3 text-sm font-semibold text-slate-900">
                               {row.fullName}

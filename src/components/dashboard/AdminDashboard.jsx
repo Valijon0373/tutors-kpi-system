@@ -230,7 +230,6 @@ export default function AdminDashboard() {
 
     const ids = ["dashboard", "biz-haqimizda"]
     if (hasAnyPermission(["faculty_view", "faculty_create", "faculty_edit", "faculty_delete"])) ids.push("fakultetlar")
-    if (hasAnyPermission(["position_view", "position_create", "position_edit", "position_delete"])) ids.push("lavozim")
     if (hasAnyPermission(["user_view", "user_create", "user_edit", "user_delete"])) ids.push("foydalanuvchilar")
     if (hasAnyPermission(["teacher_view", "teacher_create", "teacher_edit", "teacher_delete"])) ids.push("oqituvchilar")
     if (

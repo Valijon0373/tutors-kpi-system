@@ -1,6 +1,5 @@
 import {
   ClipboardCheck,
-  FileText,
   GraduationCap,
   Info,
   Landmark,
@@ -19,7 +18,6 @@ export const DASHBOARD_NAV = [
     iconStroke: 1.25,
     inactiveClassLight: "text-slate-700",
   },
-  { id: "lavozim", label: "Lavozim", Icon: FileText },
   { id: "foydalanuvchilar", label: "Foydalanuvchilar", Icon: User },
   { id: "oqituvchilar", label: "Tyutorlar", Icon: Users },
   { id: "mezonlar", label: "Mezonlar", Icon: ClipboardCheck },
